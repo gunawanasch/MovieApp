@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 
 import com.jetpack.movie.data.source.MovieAppRepository;
 import com.jetpack.movie.utils.FakeDataDummy;
+import com.jetpack.movie.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,13 +33,13 @@ public class TVShowViewModelTest {
 
     @Test
     public void getTVShows() {
-        List<TVShowModel> dummyTVShow = FakeDataDummy.generateDummyTVShow();
-        MutableLiveData<List<TVShowModel>> listTVShow = new MutableLiveData<>();
-        listTVShow.setValue(dummyTVShow);
-        when(movieAppRepository.getAllTVShows()).thenReturn(listTVShow);
-        Observer<List<TVShowModel>> observer = mock(Observer.class);
+        Resource<List<TVShowModel>> resource = Resource.success(FakeDataDummy.generateDummyTVShow());
+        MutableLiveData<Resource<List<TVShowModel>>> dummy = new MutableLiveData<>();
+        dummy.setValue(resource);
+        when(movieAppRepository.getAllTVShows()).thenReturn(dummy);
+        Observer<Resource<List<TVShowModel>>> observer = mock(Observer.class);
         viewModel.getTVShow().observeForever(observer);
-        verify(observer).onChanged(dummyTVShow);
+        verify(observer).onChanged(resource);
     }
 
 }

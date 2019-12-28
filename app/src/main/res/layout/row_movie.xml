@@ -8,7 +8,7 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackground"
-    card_view:cardBackgroundColor="@android:color/white">
+    card_view:cardBackgroundColor="@color/white">
 
     <RelativeLayout
         android:id="@+id/rlRoot"
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/white"
                     android:textStyle="bold"/>
             </RelativeLayout>
         </RelativeLayout>
@@ -96,6 +96,20 @@
                     android:textStyle="italic"
                     android:textSize="12sp"/>
             </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlMore"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true">
+                <ImageView
+                    android:id="@+id/ivMore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentEnd="true"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_more"/>
+            </RelativeLayout>
         </RelativeLayout>
 
     </RelativeLayout>

@@ -2,8 +2,10 @@ package com.jetpack.movie.model;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
+import androidx.paging.PagedList;
 
 import com.jetpack.movie.data.source.MovieAppRepository;
+import com.jetpack.movie.vo.Resource;
 
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class TVShowViewModel extends ViewModel {
         this.movieAppRepository = movieAppRepository;
     }
 
-    public LiveData<List<TVShowModel>> getTVShow() {
+    public LiveData<Resource<List<TVShowModel>>> getTVShow() {
         return movieAppRepository.getAllTVShows();
     }
+
 }

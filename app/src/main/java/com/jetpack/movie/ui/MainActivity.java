@@ -16,12 +16,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        TabLayout tabMain = findViewById(R.id.tabMain);
-        ViewPager vpMain = findViewById(R.id.vpMain);
+        TabLayout tab = findViewById(R.id.tab);
+        ViewPager vp = findViewById(R.id.vp);
 
-        setSupportActionBar(toolbar);
-        vpMain.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),
-                MainActivity.this));
-        tabMain.setupWithViewPager(vpMain);
+        toolbar.setTitle(R.string.app_name);
+        vp.setAdapter(new TabPagerAdapter(getSupportFragmentManager(), this));
+        tab.setupWithViewPager(vp);
     }
+
 }

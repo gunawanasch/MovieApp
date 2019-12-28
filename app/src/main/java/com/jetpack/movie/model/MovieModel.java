@@ -1,12 +1,35 @@
 package com.jetpack.movie.model;
 
-public class MovieModel {
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.io.Serializable;
+
+@Entity(tableName = "movie")
+public class MovieModel implements Serializable {
+    @PrimaryKey
+    @NonNull
+    @ColumnInfo(name = "movie_id")
     private String movieId;
+
+    @ColumnInfo(name = "poster")
     private String poster;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
+
+    @ColumnInfo(name = "language")
     private String language;
+
+    @ColumnInfo(name = "rating")
     private double rating;
+
+    @ColumnInfo(name = "overview")
     private String overview;
 
     public MovieModel(String movieId, String poster, String name, String releaseDate, String language, double rating, String overview) {

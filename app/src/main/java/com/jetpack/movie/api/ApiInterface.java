@@ -17,5 +17,5 @@ public interface ApiInterface {
     Call<ResponseBody> getListTVShow(@Query("page") String page);
 
     @GET("3/tv/{id}?api_key=d007adce10e29ffdfd6c4c9807e8c500&language=en-US")
-    Call<ResponseBody> geDetailTVShow(@Path("id") String id);
+    Call<ResponseBody> getDetailTVShow(@Path("id") String id);
 }

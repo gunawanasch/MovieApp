@@ -6,9 +6,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.jetpack.movie.R;
+
 public class TabPagerAdapter extends FragmentPagerAdapter {
-    private int totalTab = 2;
-    private String[] tabTitles = new String[]{"Popular Movie", "Popular TV Show"};
     private Context context;
 
     @SuppressWarnings("deprecation")
@@ -19,7 +19,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return totalTab;
+        return 4;
     }
 
     @Override
@@ -27,12 +27,25 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
         switch (position){
             case 0 : return new MovieFragment();
             case 1 : return new TVShowFragment();
+            case 2 : return new FavoriteMovieFragment();
+            case 3 : return new FavoriteTVShowFragment();
         }
         return null;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return tabTitles[position];
+        switch (position) {
+            case 0:
+                return context.getString(R.string.title_tab_movie);
+            case 1:
+                return context.getString(R.string.title_tab_tv_show);
+            case 2:
+                return context.getString(R.string.title_tab_favorite_movie);
+            case 3:
+                return context.getString(R.string.title_tab_favorite_tv_show);
+        }
+        return null;
     }
+
 }

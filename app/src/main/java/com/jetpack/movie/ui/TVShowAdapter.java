@@ -2,6 +2,7 @@ package com.jetpack.movie.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.jetpack.movie.R;
 import com.jetpack.movie.model.TVShowModel;
 import com.jetpack.movie.utils.ConvertDate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,8 +53,10 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowHold
         holder.tvRating.setText(String.valueOf(getListTVShow().get(position).getRating()));
         holder.tvReleaseDate.setText("Release Date : " + new ConvertDate().newFormatDate((getListTVShow().get(position).getReleaseDate())));
         holder.itemView.setOnClickListener(v -> {
+            Bundle b = new Bundle();
+            b.putSerializable(DetailActivity.OBJECT, (Serializable) getListTVShow().get(position));
             Intent intent = new Intent(activity, DetailActivity.class);
-            intent.putExtra(DetailActivity.ID_DATA, getListTVShow().get(position).getTvId());
+            intent.putExtras(b);
             intent.putExtra(DetailActivity.TAB_PAGE, "1");
             activity.startActivity(intent);
         });
@@ -78,6 +82,7 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowHold
             tvRating = view.findViewById(R.id.tvRating);
             tvReleaseDate = view.findViewById(R.id.tvReleaseDate);
             ivPoster = view.findViewById(R.id.ivPoster);
+            itemView.findViewById(R.id.rlMore).setVisibility(View.GONE);
         }
     }
 }

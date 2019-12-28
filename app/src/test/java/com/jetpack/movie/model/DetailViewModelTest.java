@@ -5,10 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.jetpack.movie.data.source.MovieAppRepository;
+import com.jetpack.movie.utils.FakeDataDummy;
+import com.jetpack.movie.vo.Resource;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -20,22 +24,22 @@ public class DetailViewModelTest {
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
 
     private DetailViewModel viewModel;
-    private MovieModel dummyMovie;
-    private TVShowModel dummyTV;
+    private DetailMovieModel dummyMovie;
+    private DetailTVShowModel dummyTV;
     private MovieAppRepository movieAppRepository = mock(MovieAppRepository.class);
 
     @Before
     public void setupData() {
         viewModel = new DetailViewModel(movieAppRepository);
-        dummyMovie = new MovieModel("384018",
-                "https://image.tmdb.org/t/p/w500/keym7MPn1icW1wWfzMnW3HeuzWU.jpg",
+        dummyMovie = new DetailMovieModel("384018",
+                "keym7MPn1icW1wWfzMnW3HeuzWU.jpg",
                 "Fast & Furious Presents: Hobbs & Shaw",
                 "2019-08-02",
                 "en",
                 6.5,
                 "A spinoff of The Fate of the Furious, focusing on Johnson's US Diplomatic Security Agent Luke Hobbs forming an unlikely alliance with Statham's Deckard Shaw.");
-        dummyTV = new TVShowModel("12971",
-                "https://image.tmdb.org/t/p/w500/lCvOCn1Hq0ugBL6T8SyMoaCWNOc.jpg",
+        dummyTV = new DetailTVShowModel("12971",
+                "lCvOCn1Hq0ugBL6T8SyMoaCWNOc.jpg",
                 "Dragon Ball Z",
                 "1989-04-26",
                 "ja",
@@ -45,22 +49,24 @@ public class DetailViewModelTest {
 
     @Test
     public void getDetailMovie() {
-        MutableLiveData<MovieModel> movie = new MutableLiveData<>();
-        movie.setValue(dummyMovie);
-        when(movieAppRepository.getDetailMovie(dummyMovie.getMovieId())).thenReturn(movie);
-        Observer<MovieModel> observer = mock(Observer.class);
+        Resource<DetailMovieModel> resource = Resource.success(dummyMovie);
+        MutableLiveData<Resource<DetailMovieModel>> dummy = new MutableLiveData<>();
+        dummy.setValue(resource);
+        when(movieAppRepository.getDetailMovie(dummyMovie.getMovieId())).thenReturn(dummy);
+        Observer<Resource<DetailMovieModel>> observer = mock(Observer.class);
         viewModel.getDetailMovie(dummyMovie.getMovieId()).observeForever(observer);
-        verify(observer).onChanged(dummyMovie);
+        verify(observer).onChanged(resource);
     }
 
     @Test
     public void getDetailTVShow() {
-        MutableLiveData<TVShowModel> tvShow = new MutableLiveData<>();
-        tvShow.setValue(dummyTV);
-        when(movieAppRepository.getDetailTVShow(dummyTV.getTvId())).thenReturn(tvShow);
-        Observer<TVShowModel> observer = mock(Observer.class);
+        Resource<DetailTVShowModel> resource = Resource.success(dummyTV);
+        MutableLiveData<Resource<DetailTVShowModel>> dummy = new MutableLiveData<>();
+        dummy.setValue(resource);
+        when(movieAppRepository.getDetailTVShow(dummyTV.getTvId())).thenReturn(dummy);
+        Observer<Resource<DetailTVShowModel>> observer = mock(Observer.class);
         viewModel.getDetailTVShow(dummyTV.getTvId()).observeForever(observer);
-        verify(observer).onChanged(dummyTV);
+        verify(observer).onChanged(resource);
     }
 
 }

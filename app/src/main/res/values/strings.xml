@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="title_tab_movie">Popular Movie</string>
+    <string name="title_tab_tv_show">Popular TV Show</string>
+    <string name="title_tab_favorite_movie">Favorite Movie</string>
+    <string name="title_tab_favorite_tv_show">Favorite TV Show</string>
     <string name="release_date">Release Date</string>
     <string name="language">Language</string>
     <string name="overview">Overview</string>
     <string name="detail_information">Information</string>
+    <string name="delete">Delete</string>
 </resources>

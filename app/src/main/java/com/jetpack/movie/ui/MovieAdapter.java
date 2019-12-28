@@ -2,6 +2,7 @@ package com.jetpack.movie.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.jetpack.movie.R;
 import com.jetpack.movie.model.MovieModel;
 import com.jetpack.movie.utils.ConvertDate;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,8 +54,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.tvLanguage.setText("Language : " + getListMovie().get(position).getLanguage());
         holder.tvReleaseDate.setText("Release date : " + new ConvertDate().newFormatDate(getListMovie().get(position).getReleaseDate()));
         holder.itemView.setOnClickListener(v -> {
+            Bundle b = new Bundle();
+            b.putSerializable(DetailActivity.OBJECT, (Serializable) getListMovie().get(position));
             Intent intent = new Intent(activity, DetailActivity.class);
-            intent.putExtra(DetailActivity.ID_DATA, getListMovie().get(position).getMovieId());
+            intent.putExtras(b);
             intent.putExtra(DetailActivity.TAB_PAGE, "0");
             activity.startActivity(intent);
         });
@@ -80,6 +84,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             tvLanguage = itemView.findViewById(R.id.tvLanguage);
             tvReleaseDate = itemView.findViewById(R.id.tvReleaseDate);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            itemView.findViewById(R.id.rlMore).setVisibility(View.GONE);
         }
     }
 }

@@ -2,18 +2,22 @@ package com.jetpack.movie.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.jetpack.movie.R;
+import com.jetpack.movie.model.TVShowModel;
 import com.jetpack.movie.utils.EspressoIdlingResource;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+
+import java.io.Serializable;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
@@ -26,11 +30,20 @@ public class DetailActivityTestTVShow {
     public ActivityTestRule<DetailActivity> activityRule = new ActivityTestRule<DetailActivity>(DetailActivity.class) {
         @Override
         protected Intent getActivityIntent() {
+            TVShowModel dummyTV = new TVShowModel("12971",
+                    "lCvOCn1Hq0ugBL6T8SyMoaCWNOc.jpg",
+                    "Dragon Ball Z",
+                    "1989-04-26",
+                    "ja",
+                    8.0,
+                    "Five years have passed since the fight with Piccolo Jr. and Goku now has a son, Gohan. The peace is interrupted when an alien named Raditz arrives on Earth in a spacecraft and tracks down Goku, revealing to him that that they are members of a near-extinct warrior race called the Saiyans.");
             Context targetContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-            Intent result = new Intent(targetContext, DetailActivity.class);
-            result.putExtra(DetailActivity.ID_DATA, "91299");
-            result.putExtra(DetailActivity.TAB_PAGE, "1");
-            return result;
+            Bundle b = new Bundle();
+            b.putSerializable(DetailActivity.OBJECT, (Serializable) dummyTV);
+            Intent intent = new Intent(targetContext, DetailActivity.class);
+            intent.putExtras(b);
+            intent.putExtra(DetailActivity.TAB_PAGE, "1");
+            return intent;
         }
     };
 
