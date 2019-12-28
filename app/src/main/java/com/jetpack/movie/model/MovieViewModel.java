@@ -1,11 +1,19 @@
 package com.jetpack.movie.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.jetpack.movie.data.DataDummy;
+import com.jetpack.movie.data.source.MovieAppRepository;
+
 import java.util.List;
 
 public class MovieViewModel extends ViewModel {
-    public List<MovieModel> getMovie() {
-        return DataDummy.generateDummyMovie();
+    private MovieAppRepository movieAppRepository;
+
+    public MovieViewModel(MovieAppRepository movieAppRepository) {
+        this.movieAppRepository = movieAppRepository;
+    }
+
+    public LiveData<List<MovieModel>> getMovie() {
+        return movieAppRepository.getAllMovies();
     }
 }

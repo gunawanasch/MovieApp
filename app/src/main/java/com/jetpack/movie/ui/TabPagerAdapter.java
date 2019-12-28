@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class TabPagerAdapter extends FragmentPagerAdapter {
     private int totalTab = 2;
-    private String tabTitles[] = new String[] {"Popular Movie", "Popular TV Show"};
+    private String[] tabTitles = new String[]{"Popular Movie", "Popular TV Show"};
     private Context context;
 
     @SuppressWarnings("deprecation")

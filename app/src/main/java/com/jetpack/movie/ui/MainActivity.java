@@ -10,17 +10,14 @@ import com.google.android.material.tabs.TabLayout;
 import com.jetpack.movie.R;
 
 public class MainActivity extends AppCompatActivity {
-    private Toolbar toolbar;
-    private TabLayout tabMain;
-    private ViewPager vpMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar);
-        tabMain = findViewById(R.id.tabMain);
-        vpMain = findViewById(R.id.vpMain);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        TabLayout tabMain = findViewById(R.id.tabMain);
+        ViewPager vpMain = findViewById(R.id.vpMain);
 
         setSupportActionBar(toolbar);
         vpMain.setAdapter(new TabPagerAdapter(getSupportFragmentManager(),

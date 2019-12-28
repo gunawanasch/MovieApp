@@ -9,7 +9,6 @@ public class TVShowModel {
     private double rating;
     private String overview;
 
-
     public TVShowModel(String tvId, String poster, String name, String releaseDate, String language, double rating, String overview) {
         this.tvId = tvId;
         this.poster = poster;
@@ -24,16 +23,8 @@ public class TVShowModel {
         return tvId;
     }
 
-    public void setTvId(String tvId) {
-        this.tvId = tvId;
-    }
-
     public String getPoster() {
         return poster;
-    }
-
-    public void setPoster(String poster) {
-        this.poster = poster;
     }
 
     public String getName() {
@@ -48,31 +39,16 @@ public class TVShowModel {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
     public String getLanguage() {
         return language;
-    }
-
-    public void setLanguage(String language) {
-        this.language = language;
     }
 
     public double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
     public String getOverview() {
         return overview;
     }
 
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
 }

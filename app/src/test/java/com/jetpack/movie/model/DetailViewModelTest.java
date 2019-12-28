@@ -1,18 +1,32 @@
 package com.jetpack.movie.model;
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.jetpack.movie.data.source.MovieAppRepository;
+
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class DetailViewModelTest {
+
+    @Rule
+    public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
+
     private DetailViewModel viewModel;
     private MovieModel dummyMovie;
     private TVShowModel dummyTV;
+    private MovieAppRepository movieAppRepository = mock(MovieAppRepository.class);
 
     @Before
     public void setupData() {
-        viewModel = new DetailViewModel();
+        viewModel = new DetailViewModel(movieAppRepository);
         dummyMovie = new MovieModel("384018",
                 "https://image.tmdb.org/t/p/w500/keym7MPn1icW1wWfzMnW3HeuzWU.jpg",
                 "Fast & Furious Presents: Hobbs & Shaw",
@@ -31,28 +45,22 @@ public class DetailViewModelTest {
 
     @Test
     public void getDetailMovie() {
-        viewModel.setMovieId(dummyMovie.getMovieId());
-        MovieModel sampleMovie = viewModel.getMovie();
-        assertNotNull(sampleMovie);
-        assertEquals(dummyMovie.getMovieId(), sampleMovie.getMovieId());
-        assertEquals(dummyMovie.getName(), sampleMovie.getName());
-        assertEquals(String.valueOf(dummyMovie.getRating()), String.valueOf(sampleMovie.getRating()));
-        assertEquals(dummyMovie.getReleaseDate(), sampleMovie.getReleaseDate());
-        assertEquals(dummyMovie.getOverview(), sampleMovie.getOverview());
-        assertEquals(dummyMovie.getPoster(), sampleMovie.getPoster());
+        MutableLiveData<MovieModel> movie = new MutableLiveData<>();
+        movie.setValue(dummyMovie);
+        when(movieAppRepository.getDetailMovie(dummyMovie.getMovieId())).thenReturn(movie);
+        Observer<MovieModel> observer = mock(Observer.class);
+        viewModel.getDetailMovie(dummyMovie.getMovieId()).observeForever(observer);
+        verify(observer).onChanged(dummyMovie);
     }
 
     @Test
     public void getDetailTVShow() {
-        viewModel.setTvId(dummyTV.getTvId());
-        TVShowModel sampleTV = viewModel.geTVShow();
-        assertNotNull(sampleTV);
-        assertEquals(dummyTV.getTvId(), sampleTV.getTvId());
-        assertEquals(dummyTV.getName(), sampleTV.getName());
-        assertEquals(String.valueOf(dummyTV.getRating()), String.valueOf(sampleTV.getRating()));
-        assertEquals(dummyTV.getReleaseDate(), sampleTV.getReleaseDate());
-        assertEquals(dummyTV.getOverview(), sampleTV.getOverview());
-        assertEquals(dummyTV.getPoster(), sampleTV.getPoster());
+        MutableLiveData<TVShowModel> tvShow = new MutableLiveData<>();
+        tvShow.setValue(dummyTV);
+        when(movieAppRepository.getDetailTVShow(dummyTV.getTvId())).thenReturn(tvShow);
+        Observer<TVShowModel> observer = mock(Observer.class);
+        viewModel.getDetailTVShow(dummyTV.getTvId()).observeForever(observer);
+        verify(observer).onChanged(dummyTV);
     }
 
 }

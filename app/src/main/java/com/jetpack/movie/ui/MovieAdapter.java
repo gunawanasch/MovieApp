@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jetpack.movie.R;
 import com.jetpack.movie.model.MovieModel;
+import com.jetpack.movie.utils.ConvertDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         holder.tvTitle.setText(getListMovie().get(position).getName());
         holder.tvRating.setText(String.valueOf(getListMovie().get(position).getRating()));
         holder.tvLanguage.setText("Language : " + getListMovie().get(position).getLanguage());
-        holder.tvReleaseDate.setText("Release date : " + getListMovie().get(position).getReleaseDate());
+        holder.tvReleaseDate.setText("Release date : " + new ConvertDate().newFormatDate(getListMovie().get(position).getReleaseDate()));
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailActivity.class);
             intent.putExtra(DetailActivity.ID_DATA, getListMovie().get(position).getMovieId());
@@ -58,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         });
 
         Glide.with(holder.itemView.getContext())
-                .load(getListMovie().get(position).getPoster())
+                .load("https://image.tmdb.org/t/p/w500/"+getListMovie().get(position).getPoster())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image).error(R.drawable.ic_broken_image))
                 .into(holder.ivPoster);
     }

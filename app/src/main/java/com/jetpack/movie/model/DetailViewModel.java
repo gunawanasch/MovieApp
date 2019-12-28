@@ -1,47 +1,23 @@
 package com.jetpack.movie.model;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
-import com.jetpack.movie.data.DataDummy;
+
+import com.jetpack.movie.data.source.MovieAppRepository;
 
 public class DetailViewModel extends ViewModel {
-    private MovieModel movie;
-    private String movieId;
-    private TVShowModel tv;
-    private String tvId;
+    private MovieAppRepository movieAppRepository;
 
-    public MovieModel getMovie() {
-        for (int i = 0; i < DataDummy.generateDummyMovie().size(); i++) {
-            MovieModel movieModel = DataDummy.generateDummyMovie().get(i);
-            if (movieModel.getMovieId().equals(movieId)) {
-                movie = movieModel;
-            }
-        }
-        return movie;
+    public DetailViewModel(MovieAppRepository movieAppRepository) {
+        this.movieAppRepository = movieAppRepository;
     }
 
-    public String getMovieId() {
-        return movieId;
+    public LiveData<MovieModel> getDetailMovie(String id) {
+        return movieAppRepository.getDetailMovie(id);
     }
 
-    public void setMovieId(String movieId) {
-        this.movieId = movieId;
+    public LiveData<TVShowModel> getDetailTVShow(String id) {
+        return movieAppRepository.getDetailTVShow(id);
     }
 
-    public TVShowModel geTVShow() {
-        for (int i = 0; i < DataDummy.generateDummyTVShow().size(); i++) {
-            TVShowModel tvShowModel = DataDummy.generateDummyTVShow().get(i);
-            if (tvShowModel.getTvId().equals(tvId)) {
-                tv = tvShowModel;
-            }
-        }
-        return tv;
-    }
-
-    public String getTvId() {
-        return tvId;
-    }
-
-    public void setTvId(String tvId) {
-        this.tvId = tvId;
-    }
 }

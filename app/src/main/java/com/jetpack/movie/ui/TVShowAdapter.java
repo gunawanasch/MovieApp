@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.jetpack.movie.R;
 import com.jetpack.movie.model.TVShowModel;
+import com.jetpack.movie.utils.ConvertDate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowHold
     public void onBindViewHolder(@NonNull final TVShowAdapter.TVShowHolder holder, int position) {
         holder.tvTitle.setText(getListTVShow().get(position).getName());
         holder.tvRating.setText(String.valueOf(getListTVShow().get(position).getRating()));
-        holder.tvReleaseDate.setText("Release Date : " + String.valueOf(getListTVShow().get(position).getReleaseDate()));
+        holder.tvReleaseDate.setText("Release Date : " + new ConvertDate().newFormatDate((getListTVShow().get(position).getReleaseDate())));
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(activity, DetailActivity.class);
             intent.putExtra(DetailActivity.ID_DATA, getListTVShow().get(position).getTvId());
@@ -57,7 +58,7 @@ public class TVShowAdapter extends RecyclerView.Adapter<TVShowAdapter.TVShowHold
         });
 
         Glide.with(holder.itemView.getContext())
-                .load(getListTVShow().get(position).getPoster())
+                .load("https://image.tmdb.org/t/p/w500/"+getListTVShow().get(position).getPoster())
                 .apply(RequestOptions.placeholderOf(R.drawable.ic_image).error(R.drawable.ic_broken_image))
                 .into(holder.ivPoster);
     }

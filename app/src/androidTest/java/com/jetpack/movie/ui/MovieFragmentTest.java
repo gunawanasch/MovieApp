@@ -1,11 +1,13 @@
 package com.jetpack.movie.ui;
 
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.rule.ActivityTestRule;
 
 import com.jetpack.movie.R;
 import com.jetpack.movie.testing.SingleFragmentActivity;
-import com.jetpack.movie.utils.RecyclerViewItemCountAssertion;
+import com.jetpack.movie.utils.EspressoIdlingResource;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -22,13 +24,18 @@ public class MovieFragmentTest {
 
     @Before
     public void setupUI() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.getEspressoIdlingResource());
         activityRule.getActivity().setFragment(movieFragment);
+    }
+
+    @After
+    public void tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.getEspressoIdlingResource());
     }
 
     @Test
     public void loadMovies() {
         onView(withId(R.id.rv)).check(matches(isDisplayed()));
-        onView(withId(R.id.rv)).check(new RecyclerViewItemCountAssertion(10));
     }
 
 }
